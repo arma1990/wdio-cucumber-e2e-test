@@ -31,7 +31,7 @@ export const config: Options.Testrunner = {
     // will be called from there.
     //
     specs: [
-        './test/features/**/*.feature'
+        `${process.cwd()}/test/features/**/*.feature`
     ],  
     // Patterns to exclude.
     exclude: [
@@ -104,7 +104,7 @@ export const config: Options.Testrunner = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost',
+    baseUrl: 'https://the-internet.herokuapp.com',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -146,8 +146,9 @@ export const config: Options.Testrunner = {
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
+    //'./test/features/step-definitions/*.ts'
     cucumberOpts: {
-        require: ['./test/features/step-definitions/*.ts'],
+        require: [`${process.cwd()}/test/features/step-definitions/*.ts`],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
