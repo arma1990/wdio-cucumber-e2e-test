@@ -4,7 +4,7 @@ Feature: Demo feature
         Given Go to google page
         When Search with <SearchItem>
         Then Click on the first search result
-        Then Url shoul be match <ExpectedURL>
+        Then Url should be match <ExpectedURL>
 
         Examples:
             | TestID     | SearchItem | ExpectedURL           |
