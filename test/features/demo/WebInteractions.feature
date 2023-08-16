@@ -1,6 +1,6 @@
 Feature: Web Interactions
 
-    @demo
+    @smoke
     Scenario Outline: Demo Web Interactions
         Given A webpage is opened
         When Perform web interactions
