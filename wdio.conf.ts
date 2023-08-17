@@ -1,9 +1,10 @@
 // @ts-nocheck
 import dotenv from "dotenv";
-dotenv.config();
+import fs from "fs";
 import type { Options } from "@wdio/types";
 let headless = process.env.HEADLESS;
 let debug = process.env.DEBUG;
+dotenv.config();
 export const config: Options.Testrunner = {
   //
   // ====================
@@ -168,15 +169,18 @@ export const config: Options.Testrunner = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ['spec',
-  [ 'allure',
-      {
-        outputDir: 'allure-results',
-        disableWebdriverStepsReporting: true,
-        useCucumberStepReporter: true,
-      },
-    ],
-  ],
+  // reporters: ['spec',
+  // [ 'allure',
+  //     {
+  //       outputDir: 'allure-results',
+  //       disableWebdriverStepsReporting: true,
+  //       useCucumberStepReporter: true
+  //       // reportedEnvironmentVars: {
+  //       //   Environment: process.env.TEST
+  //       // }
+  //     },
+  //   ],
+  // ],
 
   //
   // If you are using Cucumber you need to specify the location of your step definitions.
@@ -218,8 +222,11 @@ export const config: Options.Testrunner = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    if (process.env.RUNNER === "local" && fs.existsSync("./allure-results")) {
+      fs.rmdirSync("./allure-results", { recursive: true });
+    }
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -284,12 +291,14 @@ export const config: Options.Testrunner = {
    * @param {Object}                 context  Cucumber World object
    */
   beforeScenario: function (world, context) {
-    let arr = world.pickle.name.split(/:/)
+    let arr = world.pickle.name.split(/:/);
     if (arr.length > 0) {
-      browser.options.testid = arr[0]
+      browser.options.testid = arr[0];
     }
     if (!browser.options.testid) {
-      throw Error(`Error getting testid for current scenario: ${world.pickle.name}`)
+      throw Error(
+        `Error getting testid for current scenario: ${world.pickle.name}`
+      );
     }
   },
   /**
@@ -301,7 +310,7 @@ export const config: Options.Testrunner = {
    */
   beforeStep: function (step, scenario, context) {
     if (browser.options.testid) {
-      context.testid = browser.options.testid
+      context.testid = browser.options.testid;
     }
   },
   /**
@@ -339,6 +348,8 @@ export const config: Options.Testrunner = {
    * @param {GherkinDocument.IFeature} feature  Cucumber feature object
    */
   // afterFeature: function (uri, feature) {
+  //   // Add more env details
+  //   //allure.addEnvironment("Environment: ", browser.options.environment)
   // },
 
   /**
