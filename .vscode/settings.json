@@ -2,6 +2,6 @@
     "cucumberautocomplete.steps": [
         "test/features/step-definitions/*.ts"
     ],
-    "cucumberautocomplete.syncfeatures": "test/features/demo/*.feature", 
+    "cucumberautocomplete.syncfeatures": "test/features/feature-files/*.feature", 
     "cucumberautocomplete.strictGherkinCompletion": true
 }

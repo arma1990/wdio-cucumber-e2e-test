@@ -131,7 +131,7 @@ export const config: Options.Testrunner = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://the-internet.herokuapp.com",
+  // baseUrl: "https://the-internet.herokuapp.com",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -265,8 +265,10 @@ export const config: Options.Testrunner = {
    * @param {Object}         browser      instance of created browser/device session
    */
   before: async function (capabilities, specs) {
-    (browser.options["environment"] = config.environment),
-      (browser.options["sauceDemoURL"] = config.sauceDemoURL);
+      browser.options["environment"] = config.environment
+      browser.options["sauceDemoURL"] = config.sauceDemoURL
+      browser.options["reqresBaseUrl"] = config.reqresBaseUrl
+      browser.options["nopCommerceBaseURL"] = config.nopCommerceBaseURL
   },
   /**
    * Runs before a WebdriverIO command gets executed.

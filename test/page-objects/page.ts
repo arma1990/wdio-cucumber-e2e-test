@@ -23,6 +23,7 @@ export default class Page {
         if (!ele.elementId) {
             throw Error (ele.error.message)
         }
+        await ele.clearValue()
         await ele.setValue(text)
     }
 }

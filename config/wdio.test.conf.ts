@@ -3,6 +3,8 @@ export const config = Object.assign(baseConfig, {
   // All test env specific key value pairs
   environment: "TEST",
   sauceDemoURL: "https://www.saucedemo.com",
+  reqresBaseUrl: "https://reqres.in",
+  nopCommerceBaseURL: "https://admin-demo.nopcommerce.com",
   reporters: [
     "spec",
     [
