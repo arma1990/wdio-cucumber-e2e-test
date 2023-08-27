@@ -27,4 +27,3 @@ jobs:
         run: npm install
       - name: Running e2e tests
         run: npm run test:e2e
-        
